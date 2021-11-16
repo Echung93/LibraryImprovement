@@ -82,11 +82,11 @@ class API
             }
 
             else
-            {
+{
                 a = "1";
             int b = int.Parse(a) + int.Parse(s)*(num - 1);
             a = b.ToString();
-            }
+}
 
 
         }

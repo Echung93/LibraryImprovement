@@ -7,10 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-class Class1
+namespace apiTest
 {
-    static void Main(string[] args)
+    class Class1
     {
+        const string NAVER_DISPLAY_STRING = "&display=";
+        const string NAVER_ID = "4djOgPTvaUjxuEqSudHM";
+        const string NAVER_SECRET = "bDuwCmqIPr";
+        public const string NAVER_URL = "https://openapi.naver.com/v1/search/book_adv.xml?d_titl=";
+
+        static void Main(string[] args)
+        {
         API api = new API();
 
         Console.Write("검색하실 책의 이름을 입력해주세요. : ");
@@ -18,6 +25,7 @@ class Class1
         Console.Write("나타나실 책의 갯수를 입력해주세요. : ");
         string num = Console.ReadLine();
         api.searchBook(input, num);
-        Console.ReadLine();
+            Console.ReadLine();
+        }
     }
 }
