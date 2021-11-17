@@ -38,10 +38,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API.cs" />
-    <Compile Include="BookVO.cs" />
+    <Compile Include="Function.cs" />
+    <Compile Include="initialStart.cs" />
+    <Compile Include="Model\BookHistoryVO.cs" />
+    <Compile Include="Model\BookVO.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DB.cs" />
-    <Compile Include="MenuControl.cs" />
+    <Compile Include="Controller\MenuControl.cs" />
+    <Compile Include="Model\UserVO.cs" />
+    <Compile Include="View\Ui.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -92,10 +97,6 @@
       <HintPath>..\packages\MySql.Data.8.0.27\lib\net452\ZstdNet.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="Model\" />
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

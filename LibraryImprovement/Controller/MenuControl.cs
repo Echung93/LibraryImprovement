@@ -59,6 +59,7 @@ public class MenuControl
         while (true)
         {
             key = Console.ReadKey(true);
+            
             if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape
               && IsNumber(key))
             {

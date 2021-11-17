@@ -62,41 +62,42 @@ class API
             }
             foreach (BookVO bv in list)
             {
+                Console.WriteLine("------------------------------------------------------------------    ");
                 Console.WriteLine("\r\n");
-                Console.WriteLine(bv.BookName);
-                Console.WriteLine(bv.BookAuthor);
-                Console.WriteLine(bv.BookPrice);
-                Console.WriteLine(bv.BookPublisher);
-                Console.WriteLine(bv.BookPublicationDate);
-                Console.WriteLine(bv.BookQuantity);
-                Console.WriteLine(bv.BookISBN);
-                Console.WriteLine(bv.BookDescription);
+                Console.WriteLine($"책 이름 : {bv.BookName}");
+                Console.WriteLine($"책 작가 : {bv.BookAuthor}");
+                Console.WriteLine($"책 가격 : {bv.BookPrice}");
+                Console.WriteLine($"책 출판사 : {bv.BookPublisher}");
+                Console.WriteLine($"책 출간일 : {bv.BookPublicationDate}");              
+                Console.WriteLine($"책 ISBN : {bv.BookISBN}");
+                Console.WriteLine($"책 설명 : {bv.BookDescription}");
                 Console.WriteLine("\r\n");
 
             }
-
+            Console.WriteLine("------------------------------------------------------------------    ");
+            Console.WriteLine("\r\n1 : 등록   ESC : 뒤로가기   방향키 : 이동");
             //new DB(list);
             if (check == 1)
             {
-                Console.WriteLine("처음 페이지 입니다.");
+                Console.WriteLine("\r\n처음 페이지 입니다.");
                 check = 0;
             }
 
             else if (check == 2)
             {
-                Console.WriteLine("마지막 페이지 입니다.");
+                Console.WriteLine("\r\n마지막 페이지 입니다.");
                 check = 0;
-            }
+            } 
 
             else
             {
-                Console.WriteLine($"{count + 1}번 페이지 입니다.");
+                Console.WriteLine($"\r\n{count + 1}번 페이지 입니다.");
             }
 
             ConsoleKeyInfo key;
             key = Console.ReadKey(true);
 
-            if (key.Key == ConsoleKey.RightArrow)      //esc 누를 경우 null 반환
+            if (key.Key == ConsoleKey.RightArrow) //우측키 입력
             {
                 if (list.Count < int.Parse(s))
                 {
@@ -112,7 +113,7 @@ class API
                 }
             }
 
-            else if (key.Key == ConsoleKey.LeftArrow)
+            else if (key.Key == ConsoleKey.LeftArrow) // 좌측키 입력
             {
                 if (count == 0)
                 {
@@ -127,20 +128,6 @@ class API
                 a = b.ToString();
                 }
             }
-
-
-            //int num = int.Parse(Console.ReadLine());
-            //if (num == 1)
-            //{
-            //    a = "1";
-            //}
-
-                //else
-                //{
-                //    a = "1";
-                //    int b = int.Parse(a) + int.Parse(s) * (num - 1);
-                //    a = b.ToString();
-                //}
         }
     }
 }

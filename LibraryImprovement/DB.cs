@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 class DB
 {
 
-    public DB(List<BookVO> list)
+    public void DB1(List<BookVO> list)
     {
         MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
         connection.Open();
@@ -80,4 +80,41 @@ class DB
 
     }
 
+    public List<string> userList(List<UserVO> list)
+    {
+
+        MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
+        connection.Open();
+        MySqlCommand command = new MySqlCommand("SELECT *FROM userinformation ", connection);
+        MySqlDataReader rdr = command.ExecuteReader();
+        List <string > userList = new List<string>();
+        while (rdr.Read())
+        {
+            //Console.WriteLine($"{rdr["userId"]} {rdr["userPassword"]} {rdr["userName"]} {rdr["userPhoneNumber"]} " +
+            //    $"{rdr["userAddress"]} {rdr["borrowedBookList"]} {rdr["borrowedBookCount"]}");
+            userList.Add(rdr["userId"].ToString());
+        }
+
+        //foreach (var i in userList)
+        //{
+        //    Console.WriteLine(i);
+        //}
+
+        connection.Close();
+        return userList;
+    }
+
+    public void userSave(string userID,string userPassword, string userName, string userAge, string userPhoneNumber,string userAddress)
+    {
+
+        MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
+        connection.Open();
+        string userInformationString = $"VALUES('{userID}', '{userPassword}', '{userName}', '{userAge}','010{userPhoneNumber}' ,'{userAddress}', '','')";
+       //MySqlCommand command = new MySqlCommand("UPDATE userinformation, connection);
+        //MySqlCommand command = new MySqlCommand("INSERT INTO userinformation (userID,userPassword,userName," +
+        //    "userAge,userAddress,borrowedBookList,borrowedBookCount)"
+        ////    + userInformationString, connection);
+        //command.ExecuteNonQuery();
+        connection.Close();
+    }
 }
