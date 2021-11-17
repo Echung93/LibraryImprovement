@@ -13,21 +13,28 @@ class DB
         MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
         connection.Open();
         MySqlCommand command = new MySqlCommand("SELECT *FROM bookinformation WHERE bookIDNumber", connection);
-
         MySqlDataReader rdr = command.ExecuteReader();
+        List<string> list1 = new List<string>();
         int count = 0 ;
-        //while(rdr.Read())
-        //  { 
-        //      Console.WriteLine($"{rdr["bookIDNumber"]} {rdr["bookName"]} {rdr["bookAuthor"]} {rdr["bookPublisher"]} " +
-        //          $"{rdr["bookPublicationDate"]} {rdr["bookQuantity"]} {rdr["bookISBN"]} {rdr["bookDescription"]}");
-        //string asd = rdr["bookPublicationDate"].ToString;
-      //  }
-      //  Console.Write("bookIDNumber을 입력하세요(숫자만 4자리) : ");
-      //for (int i = 0; i < command.Tables[0].Rosw.Count; i++)
-      //  {
-      //      DataRow dr = ds.Tables[0].Rows[i];
-      //      string[] tiems = dr.ItemTrray.Select(o)
-      //  }
+         string a = rdr.ToString();
+        Console.WriteLine(a);
+        while (rdr.Read())
+        {
+            Console.WriteLine($"{rdr["bookIDNumber"]} {rdr["bookName"]} {rdr["bookAuthor"]} {rdr["bookPublisher"]} " +
+                $"{rdr["bookPublicationDate"]} {rdr["bookQuantity"]} {rdr["bookISBN"]} {rdr["bookDescription"]}");
+            list1.Add(rdr["bookIDNumber"].ToString());
+        }
+
+        foreach (var i in list1)
+        {
+            Console.WriteLine(i);
+        }
+        //  Console.Write("bookIDNumber을 입력하세요(숫자만 4자리) : ");
+        //for (int i = 0; i < command.Tables[0].Rosw.Count; i++)
+        //  {
+        //      DataRow dr = ds.Tables[0].Rows[i];
+        //      string[] tiems = dr.ItemTrray.Select(o)
+        //  }
         string input = Console.ReadLine();
         while (true)
         { 
