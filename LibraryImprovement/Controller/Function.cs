@@ -268,7 +268,8 @@ class Function
         //db.DB1(books);
         List = db.bookList(List);
         Console.Write("\r\n        책IDNumber를 입력하세요(Number) : ");
-        string bookIDNumber = MenuControl.Get().ReadString();        
+        string bookIDNumber = MenuControl.Get().ReadString();
+        int count = 0;
         while (check)
         {
             int count = 1;
