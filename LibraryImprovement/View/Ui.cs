@@ -3,6 +3,10 @@ using System.Collections.Generic;
 public class ui
 {
     private static ui instance = null;
+    Function function = new Function();
+    DB db = new DB();
+    List<UserVO> userList = new List<UserVO>();
+    List<BookVO> bookList = new List<BookVO>();
 
     public static ui Get()
     {
@@ -38,7 +42,8 @@ public class ui
     }
     public void printScreen1()
     {
-        bool check = true;
+        bool check = true;        
+        
         while (check)
         {
             Console.Clear();
@@ -76,26 +81,41 @@ public class ui
                 case "1":
                     {
                         ui.Get().printScreen1_1();
+                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+                        MenuControl.Get().ReadESC();
                         break;
                     }
 
                 case "2":
                     {
+                        function.bookDelete(bookList);
+                        Console.WriteLine("\r\n        삭제 완료");
+                        Console.WriteLine($"\r\n        뒤로가려면 아무키나 누르세요. ");
+                        MenuControl.Get().ReadESC();
                         break;
                     }
 
                 case "3":
                     {
+                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+                        MenuControl.Get().ReadESC();
                         break;
                     }
 
                 case "4":
                     {
+                        bookList = db.bookList(bookList);
+                        function.printBookList(bookList);
+                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+                        MenuControl.Get().ReadESC();
                         break;
                     }
 
                 case "5":
-                    {
+                    {                        
+                        function.printUser(userList);
+                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+                        MenuControl.Get().ReadESC();
                         break;
                     }
 
@@ -325,16 +345,15 @@ public class ui
 
     public void printScreenEtc()
     {
-        Console.WriteLine("       ------------------------------------------------------------------    ");
+        Console.WriteLine(" ------------------------------------------------------------------    ");
         Console.WriteLine("\r\n");
-        Console.WriteLine("          ■        ■   ■■■     ■■■     ■■   ■■■   ■    ■      ");
-        Console.WriteLine("          ■        ■   ■   ■    ■   ■   ■  ■  ■   ■   ■  ■       ");
-        Console.WriteLine("          ■        ■   ■■■■   ■■■    ■■■  ■■■      ■         ");
-        Console.WriteLine("          ■        ■   ■    ■   ■   ■   ■  ■  ■   ■     ■         ");
-        Console.WriteLine("          ■■■■  ■   ■■■■   ■    ■  ■  ■  ■    ■    ■         ");
+        Console.WriteLine(" ■        ■   ■■■     ■■■     ■■   ■■■   ■    ■      ");
+        Console.WriteLine(" ■        ■   ■   ■    ■   ■   ■  ■  ■   ■   ■  ■       ");
+        Console.WriteLine(" ■        ■   ■■■■   ■■■    ■■■  ■■■      ■         ");
+        Console.WriteLine(" ■        ■   ■    ■   ■   ■   ■  ■  ■   ■     ■         ");
+        Console.WriteLine(" ■■■■  ■   ■■■■   ■    ■  ■  ■  ■    ■    ■         ");
         Console.WriteLine("\r\n");
-        Console.WriteLine("       ---------------------------------------------- 뒤로가기 : ESC ----    ");
-        Console.WriteLine("\r\n");
+        Console.WriteLine(" ---------------------------------------------- 뒤로가기 : ESC ----    ");
         Console.WriteLine("\r\n");
     }
 
@@ -369,6 +388,7 @@ public class ui
 
     public void printScreen3_1()
     {
+        Start :
         bool check = true;
         Console.Clear();
         
@@ -414,12 +434,20 @@ public class ui
             {
                 case "1":
                     {
-                        break;
+                        userList = db.userList1(userList);
+                        function.printUserList(userList);
+                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+                        MenuControl.Get().ReadESC();
+                        goto Start;
                     }
 
                 case "2":
                     {
-                        break;
+                        bookList = db.bookList(bookList);
+                        function.printBookList(bookList);
+                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+                        MenuControl.Get().ReadESC();
+                        goto Start;
                     }
 
                 case "3":
@@ -429,7 +457,10 @@ public class ui
 
                 case "4":
                     {
-                        break;
+                        function.userDelete(userList);
+                        Console.WriteLine($"\r\n        뒤로가려면 아무키나 누르세요. ");
+                        MenuControl.Get().ReadESC();
+                        goto Start;                        
                     }
 
                 case "5":

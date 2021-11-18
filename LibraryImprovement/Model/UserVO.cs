@@ -12,7 +12,7 @@ public class UserVO
     private string userPhoneNumber;
     private string userAddress;
     private string borrowedBookList;
-    private int borrowedBookCount;
+    private string borrowedBookCount;
 
     public UserVO()
     {
@@ -28,7 +28,7 @@ public class UserVO
         this.userAddress = userAddress;
 
     }
-    public UserVO(string userId, string userPassword, string userName, string userAge, string userPhoneNumber, string userAddress, string borrowedBookList, int borrowedBookCount)
+    public UserVO(string userId, string userPassword, string userName, string userAge, string userPhoneNumber, string userAddress, string borrowedBookList, string borrowedBookCount)
     {
         this.userId = userId;
         this.userPassword = userPassword;
@@ -82,7 +82,7 @@ public class UserVO
         set { borrowedBookList = value; }
     }
 
-    public int BorrowedBookCount
+    public string BorrowedBookCount
     {
         get { return borrowedBookCount; }
         set { borrowedBookCount = value; }
