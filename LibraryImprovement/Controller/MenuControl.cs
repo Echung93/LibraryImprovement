@@ -59,7 +59,7 @@ public class MenuControl
         while (true)
         {
             key = Console.ReadKey(true);
-            
+
             if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape
               && IsNumber(key))
             {
@@ -82,6 +82,74 @@ public class MenuControl
                 if (Number == "")
                     continue;
                 return Number;
+            }
+        }
+    }
+
+    public string ReadKorea()    //숫자만 입력하는 메소드
+    {
+        string Korea = "";
+        ConsoleKeyInfo key;
+        while (true)
+        {
+            key = Console.ReadKey(true);
+
+            if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape
+              && IsKoreaString(key))
+            {
+                Korea += key.KeyChar;
+                Console.Write(key.KeyChar);
+            }
+            else if (key.Key == ConsoleKey.Backspace && Korea.Length > 0)
+            {
+                Korea = Korea.Substring(0, (Korea.Length - 1));
+                Console.Write("\b\b  \b\b");
+            }
+
+            else if (key.Key == ConsoleKey.Escape)      //ESC이면 NULL 반환.
+            {
+                return "\0";
+            }
+
+            else if (key.Key == ConsoleKey.Enter)       //엔터누르면 값반환.
+            {
+                if (Korea == "")
+                    continue;
+                return Korea;
+            }
+        }
+    }
+
+    public string ReadEnglish()    //숫자만 입력하는 메소드
+    {
+        string English = "";
+        ConsoleKeyInfo key;
+        while (true)
+        {
+            key = Console.ReadKey(true);
+
+            if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape
+              && IsEnglishString(key))
+            {
+                English += key.KeyChar;
+                Console.Write(key.KeyChar);
+            }
+            else if (key.Key == ConsoleKey.Backspace && English.Length > 0)
+            {
+                English = English.Substring(0, (English.Length - 1));
+                Console.Write("\b \b");
+            }
+
+            else if (key.Key == ConsoleKey.Escape)      //ESC이면 NULL 반환.
+            {
+                return "\0";
+            }
+
+            else if (key.Key == ConsoleKey.Enter)       //엔터누르면 값반환.
+            {
+                if (English == "")
+                    continue;
+                return English;
             }
         }
     }
@@ -118,45 +186,57 @@ public class MenuControl
         return false;
     }
 
+    public bool IsEnglishString(ConsoleKeyInfo key)      //영어숫자만을 입력받기 위해인지 테스트
+    {
+        char trying = key.KeyChar;
+        if (key == null) return false;
+        if ((key.KeyChar >= 'a' && key.KeyChar <= 'z') || (key.KeyChar >= 'A' && key.KeyChar <= 'Z') || (key.KeyChar >= '0' && key.KeyChar <= '9') || key.KeyChar == ' ')
+            return true;
+        return false;
+    }
+    public bool IsKoreaString(ConsoleKeyInfo key)      //한글만을 입력받기 위해인지 테스트
+    {
+        char trying = key.KeyChar;
+        if (key == null) return false;
+        if ((key.KeyChar >= '가' && key.KeyChar <= '힣') || key.KeyChar == ' ')
+            return true;
+        return false;
+    }
+
+
     public string ReadPassword()
     {
-        string password = "";
+        string Password = "";
         ConsoleKeyInfo key;
         while (true)
         {
             key = Console.ReadKey(true);
 
-            if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape
-                && IsKoreanString(key))
+            if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape
+              && IsEnglishString(key))
             {
-                password += key.KeyChar;
+                Password += key.KeyChar;
                 Console.Write("*");
             }
-            else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+            else if (key.Key == ConsoleKey.Backspace && Password.Length > 0)
             {
-                int lastIndex = password.Length - 1;
-                if (password[lastIndex] >= '가' && password[lastIndex] <= '힣')       //한글일경우
-                {
-                    password = password.Substring(0, (password.Length - 1));
-                    Console.Write("\b\b  \b\b");
-                }
-                else
-                {
-                    password = password.Substring(0, (password.Length - 1));  //한글 이외의 문자.
-                    Console.Write("\b \b");
-                }
+                Password = Password.Substring(0, (Password.Length - 1));
+                Console.Write("\b \b");
             }
-            else if (key.Key == ConsoleKey.Escape)      //esc 누를 경우 null 반환
+
+            else if (key.Key == ConsoleKey.Escape)      //ESC이면 NULL 반환.
             {
                 return "\0";
             }
-            else if (key.Key == ConsoleKey.Enter)       //엔터를 누를경우 저장된 스트링 반환
+
+            else if (key.Key == ConsoleKey.Enter)       //엔터누르면 값반환.
             {
-                if (password == "")
+                if (Password == "")
                     continue;
-                return password;
+                return Password;
             }
         }
     }
 }
+
 

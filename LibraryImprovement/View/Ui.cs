@@ -3,6 +3,10 @@ using System.Collections.Generic;
 public class ui
 {
     private static ui instance = null;
+    Function function = new Function();
+    DB db = new DB();
+    List<UserVO> userList = new List<UserVO>();
+    List<BookVO> bookList = new List<BookVO>();
 
     public static ui Get()
     {
@@ -38,7 +42,8 @@ public class ui
     }
     public void printScreen1()
     {
-        bool check = true;
+        bool check = true;        
+        
         while (check)
         {
             Console.Clear();
@@ -81,6 +86,10 @@ public class ui
 
                 case "2":
                     {
+                        function.bookDelete(bookList);
+                        Console.WriteLine("\r\n        삭제 완료");
+                        Console.WriteLine($"\r\n        뒤로가려면 아무키나 누르세요. ");
+                        Console.ReadLine();
                         break;
                     }
 
@@ -91,6 +100,9 @@ public class ui
 
                 case "4":
                     {
+                        bookList = db.bookList(bookList);
+                        function.printBookList(bookList);
+                        Console.ReadLine();
                         break;
                     }
 
@@ -325,16 +337,15 @@ public class ui
 
     public void printScreenEtc()
     {
-        Console.WriteLine("       ------------------------------------------------------------------    ");
+        Console.WriteLine(" ------------------------------------------------------------------    ");
         Console.WriteLine("\r\n");
-        Console.WriteLine("          ■        ■   ■■■     ■■■     ■■   ■■■   ■    ■      ");
-        Console.WriteLine("          ■        ■   ■   ■    ■   ■   ■  ■  ■   ■   ■  ■       ");
-        Console.WriteLine("          ■        ■   ■■■■   ■■■    ■■■  ■■■      ■         ");
-        Console.WriteLine("          ■        ■   ■    ■   ■   ■   ■  ■  ■   ■     ■         ");
-        Console.WriteLine("          ■■■■  ■   ■■■■   ■    ■  ■  ■  ■    ■    ■         ");
+        Console.WriteLine(" ■        ■   ■■■     ■■■     ■■   ■■■   ■    ■      ");
+        Console.WriteLine(" ■        ■   ■   ■    ■   ■   ■  ■  ■   ■   ■  ■       ");
+        Console.WriteLine(" ■        ■   ■■■■   ■■■    ■■■  ■■■      ■         ");
+        Console.WriteLine(" ■        ■   ■    ■   ■   ■   ■  ■  ■   ■     ■         ");
+        Console.WriteLine(" ■■■■  ■   ■■■■   ■    ■  ■  ■  ■    ■    ■         ");
         Console.WriteLine("\r\n");
-        Console.WriteLine("       ---------------------------------------------- 뒤로가기 : ESC ----    ");
-        Console.WriteLine("\r\n");
+        Console.WriteLine(" ---------------------------------------------- 뒤로가기 : ESC ----    ");
         Console.WriteLine("\r\n");
     }
 

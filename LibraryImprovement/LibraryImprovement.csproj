@@ -37,13 +37,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API.cs" />
-    <Compile Include="Function.cs" />
-    <Compile Include="initialStart.cs" />
+    <Compile Include="Controller\API.cs" />
+    <Compile Include="Controller\Function.cs" />
+    <Compile Include="Controller\initialStart.cs" />
     <Compile Include="Model\BookHistoryVO.cs" />
     <Compile Include="Model\BookVO.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="DB.cs" />
+    <Compile Include="Controller\DB.cs" />
     <Compile Include="Controller\MenuControl.cs" />
     <Compile Include="Model\UserVO.cs" />
     <Compile Include="View\Ui.cs" />
