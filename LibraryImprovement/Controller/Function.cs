@@ -226,7 +226,7 @@ class Function
         db.userSave(UserId, UserPassword, UserName, UserAge, UserPhoneNumber, UserAddress);
         Console.WriteLine($"\r\n        회원 가입 완료 ");
         Console.WriteLine($"\r\n        뒤로가려면 아무키나 누르세요. ");
-        Console.ReadLine();
+        MenuControl.Get().ReadESC();
 
     Exit:
         check = false;
@@ -241,13 +241,14 @@ class Function
         //db.DB1(books);
         List<string> userList = db.userList(List);
         Console.Write("\r\n        회원 ID를 입력하세요(English and Number) : ");
-        string userId = MenuControl.Get().ReadString();
+        string userId = MenuControl.Get().ReadEnglish();
 
         while (check)
         {
             if (userList.Contains(userId))
             {
                 db.userDelete(userId);
+                Console.WriteLine("\r\n        회원 삭제 완료! ");
                 check = false;
 
             }
@@ -255,9 +256,12 @@ class Function
             else
             {
                 Console.Write("\r\n        존재하지 않는 회원입니다. 회원 ID를 정확히 입력하세요(English and Number) : ");
-                userId = MenuControl.Get().ReadString();
+                userId = MenuControl.Get().ReadEnglish();
             }
         }
+
+        Console.WriteLine($"\r\n        뒤로가려면 아무키나 누르세요. ");
+        MenuControl.Get().ReadESC();
     }
 
     public void bookDelete(List<BookVO> List)
@@ -269,16 +273,66 @@ class Function
         List = db.bookList(List);
         Console.Write("\r\n        책IDNumber를 입력하세요(Number) : ");
         string bookIDNumber = MenuControl.Get().ReadString();
-        int count = 0;
+        if (bookIDNumber == "\0")
+        {
+            goto Exit;
+        }
         while (check)
         {
             int count = 1;
             for (int i = 0; i < List.Count; i++)
             {
-                if (List[i].BookIDNumber==bookIDNumber)
+                if (List[i].BookIDNumber == bookIDNumber)
                 {
                     db.bookDelete(bookIDNumber);
+                    Console.Write($"\r\n        책 이름 : {List[i].BookName}을 삭제하였습니다. "); 
                     check = false;
+                    break;
+                }
+
+                else if (count == List.Count)
+                {
+                    Console.Write("\r\n        존재하지 않는 책IDNumber입니다. 책IDNumber를 정확히 입력하세요(Number) : ");
+                    bookIDNumber = MenuControl.Get().ReadString();
+                    if (bookIDNumber == "\0")
+                    {
+                        goto Exit;
+                    }
+                    count = 1;
+                }
+                count++;
+            }
+        }
+        Console.WriteLine("\r\n        삭제 완료");
+        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+        MenuControl.Get().ReadESC();
+    Exit:
+        ;
+
+    }
+
+    public void modifyBookInformation(List<BookVO> List)
+    {
+        bool check = true;
+        Console.Clear();
+        //List<BookVO> books = new List<BookVO>();
+        //db.DB1(books);
+        List = db.bookList(List);
+        Console.Write("\r\n        변경하고자 하는 책IDNumber를 입력하세요(Number) : ");
+        string bookIDNumber = MenuControl.Get().ReadNumber();
+        while (check)
+        {
+            int count = 1;
+            for (int i = 0; i < List.Count; i++)
+            {
+                if (List[i].BookIDNumber == bookIDNumber)
+                {
+                    Console.Write("\r\n        변경하고자 하는 책의 수량을 입력하세요(Number) : ");
+                    string bookQuantity = MenuControl.Get().ReadNumber();
+                    db.bookUpdate(bookIDNumber,bookQuantity);
+                    Console.Write($"\r\n        책 이름 : {List[i].BookName}을 수정하였습니다. ");
+                    check = false;
+                    break;
                 }
 
                 else if (count == List.Count)
@@ -290,7 +344,42 @@ class Function
                 count++;
             }
         }
+        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+        MenuControl.Get().ReadESC();
+
     }
+
+    public void modifyUserInformation(List<UserVO> currentUser)
+    {
+        Console.Write("        전화번호를 수정하려면 1번,주소를 수정하려면 2번 입력해주세요. : ");
+        string input = MenuControl.Get().ReadNumber();
+        if (input == "1")
+        {
+            Console.Write("\r\n        수정하려는 전화번호를 입력('-' 제외하고 입력) : ");
+            string phoneNumber = MenuControl.Get().ReadNumber();
+            db.userUpdate(currentUser[0].UserId, phoneNumber, null);
+        }
+
+        else if (input == "2")
+        {
+            Console.Write("\r\n        수정하려는 주소를 입력 : ");
+            string address = MenuControl.Get().ReadString();
+            db.userUpdate(currentUser[0].UserId, null, address);
+        }
+
+        else if (input == "\0")
+        {
+            goto Exit;
+        }
+
+        Console.WriteLine($"\r\n        수정을 완료하였습니다. ");
+        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+        MenuControl.Get().ReadESC();
+    Exit:
+        ;
+
+    }
+
     public void printBookList(List<BookVO> List)
     {
         Console.Clear();
@@ -313,6 +402,8 @@ class Function
         }
         Console.WriteLine(" ------------------------------------------------------------------    ");
         Console.WriteLine($"              등록된 총 책의 종류는 {List.Count}종류 입니다.    ");
+        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+        MenuControl.Get().ReadESC();
     }
 
     public void printUserList(List<UserVO> List)
@@ -335,6 +426,8 @@ class Function
         }
         Console.WriteLine(" ------------------------------------------------------------------    ");
         Console.WriteLine($"              등록된 총 회원 수는 {List.Count}명 입니다.    ");
+        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
+        MenuControl.Get().ReadESC();
     }
     public void printUser(List<UserVO> user)
     {
@@ -357,5 +450,128 @@ class Function
         Console.WriteLine(" ------------------------------------------------------------------    ");
     }
 
+    public void addBook(List<BookVO> List)
+    {
+        bool check = true;
+        List = db.bookList(List);
+        while (check)
+        {
+            Console.Clear();
+            ui.Get().printScreenEtc();
+            Console.Write("\r\n        책 ID 숫자 입력(입력예시 : 1234) : ");
+            string BookIDNumber = MenuControl.Get().ReadNumber();
+            bool check1 = true;
+
+            while (check1)
+            {
+                int count = 0;
+                for (int i = 0; i < List.Count; i++)
+                {
+                    if (List[i].BookIDNumber == BookIDNumber)
+                    {
+                        count++;
+                        Console.Write("\r\n        있는 책 ID입니다. 다시 책 ID 숫자를 입력(입력예시 : 1234) : ");
+                        BookIDNumber = MenuControl.Get().ReadNumber();
+
+                    }
+                }
+
+                if (BookIDNumber == "\0")
+                {
+                    goto Exit;
+                }
+
+                else if (List.Count == 0)
+                {
+                    check1 = false;
+                }
+
+                else if (BookIDNumber.Length != 4)
+                {
+                    Console.Write("\r\n        4자리의 책 ID 숫자를 다시 입력해주세요 (입력예시 : 1234) : ");
+                    BookIDNumber = MenuControl.Get().ReadNumber();
+                }
+
+                else if (count == 0)
+                {
+                    check1 = false;
+                }
+            }
+
+            Console.Write("\r\n        책 이름 입력 : ");
+        check2:
+            string BookName = MenuControl.Get().ReadString();
+            for (int j = 0; j < List.Count; j++)
+            {
+                if (BookName == "\0")
+                {
+                    goto Exit;
+                }
+
+                else if (List[j].BookName == BookName)
+                {
+                    Console.Write("\r\n        있는 책입니다. 다시 책 이름을 입력 : ");
+                    goto check2;
+                }
+            }
+
+            Console.Write("\r\n        책 저자 입력 : ");
+            string BookAuthor = MenuControl.Get().ReadLanguage();
+            if (BookAuthor == "\0")
+            {
+                goto Exit;
+            }
+
+            Console.Write("\r\n        책 출판사 입력 : ");
+            string BookPublisher = MenuControl.Get().ReadLanguage();
+            if (BookPublisher == "\0")
+            {
+                goto Exit;
+            }
+
+            Console.Write("\r\n        책 가격 입력 : ");
+            string BookPrice = MenuControl.Get().ReadNumber();
+            if (BookPrice == "\0")
+            {
+                goto Exit;
+            }
+
+        
+            Console.Write("\r\n        책 수량 입력(1 ~ 100) : ");
+        check3:
+            string BookQuantity = MenuControl.Get().ReadNumber();
+            int quantity = int.Parse(BookQuantity);
+            if (BookName == "\0")
+            {
+                goto Exit;
+            }
+
+            else if (1 > quantity || quantity > 100)
+            {
+                Console.Write("\r\n        책 수량을 1 ~ 100까지만 입력해주세요. : ");
+                goto check3;
+            }
+
+            Console.Write("\r\n        책 설명 입력 :  ");
+            string description = MenuControl.Get().ReadLanguage();
+            if (description == "\0")
+            {
+                goto Exit;
+
+            }
+            db.bookSave(BookIDNumber, BookName, BookAuthor, BookPublisher, BookPrice, BookQuantity, "", "", description);
+            Console.WriteLine($"\r\n        {BookName} 책 등록 완료!");
+            Console.WriteLine("\r\n        뒤로가기를 원하시면 ESC를 눌러주세요.");
+            string esc = MenuControl.Get().ReadESC();
+            if (esc == "\0")
+                break;
+        Exit:
+            break;
+        }
+    }
+    public void addBookWithApi()
+    {
+
+    }
 }
 

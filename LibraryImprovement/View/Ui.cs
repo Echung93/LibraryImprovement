@@ -4,9 +4,11 @@ public class ui
 {
     private static ui instance = null;
     Function function = new Function();
+    API api = new API();
     DB db = new DB();
     List<UserVO> userList = new List<UserVO>();
     List<BookVO> bookList = new List<BookVO>();
+    List<BookVO> currentUser = new List<BookVO>();
 
     public static ui Get()
     {
@@ -42,8 +44,13 @@ public class ui
     }
     public void printScreen1()
     {
-        bool check = true;        
-        
+        bool check = true;
+        List<UserVO> currentUser = new List<UserVO>();
+        currentUser = function.loginUser(userList);
+        if (currentUser.Count == 0)
+        {
+            check = false;
+        }
         while (check)
         {
             Console.Clear();
@@ -88,10 +95,7 @@ public class ui
 
                 case "2":
                     {
-                        function.bookDelete(bookList);
-                        Console.WriteLine("\r\n        삭제 완료");
-                        Console.WriteLine($"\r\n        뒤로가려면 아무키나 누르세요. ");
-                        MenuControl.Get().ReadESC();
+                        function.bookDelete(bookList);                        
                         break;
                     }
 
@@ -106,16 +110,14 @@ public class ui
                     {
                         bookList = db.bookList(bookList);
                         function.printBookList(bookList);
-                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
-                        MenuControl.Get().ReadESC();
                         break;
                     }
 
                 case "5":
                     {                        
-                        function.printUser(userList);
-                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
-                        MenuControl.Get().ReadESC();
+                        function.printUser(currentUser);
+                        function.modifyUserInformation(currentUser);
+                        currentUser = db.currentUser(currentUser);
                         break;
                     }
 
@@ -142,7 +144,7 @@ public class ui
                         Console.WriteLine("\r\n");
                         Console.Write("                  1~4번의 숫자를 입력해주세요.");
                         break;
-                    }
+                    }               
             }
         }
     }
@@ -420,12 +422,14 @@ public class ui
         Console.WriteLine("\r\n");
         Console.WriteLine("                             ▶      책  삭제     ◀                         ");
         Console.WriteLine("\r\n");
-        Console.WriteLine("                             ▶ 책 대여/반납 기록 ◀                         ");
+        Console.WriteLine("                             ▶ 책 검색 in Naver  ◀                         ");
+        Console.WriteLine("\r\n");
+        Console.WriteLine("                             ▶ Library Log 보기  ◀                         ");
         Console.WriteLine("\r\n");
         Console.WriteLine("                             ▶ 메뉴로  돌아 가기 ◀                         ");
         Console.WriteLine("\r\n");
         Console.WriteLine("\r\n");
-        Console.Write("                  원하시는 메뉴의 숫자(1~9)를 입력해주세요. : ");
+        Console.Write("                  원하시는 메뉴의 숫자(1~10)를 입력해주세요. : ");
         while (check)
         {
             string input = MenuControl.Get().ReadNumber();
@@ -436,8 +440,6 @@ public class ui
                     {
                         userList = db.userList1(userList);
                         function.printUserList(userList);
-                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
-                        MenuControl.Get().ReadESC();
                         goto Start;
                     }
 
@@ -445,45 +447,58 @@ public class ui
                     {
                         bookList = db.bookList(bookList);
                         function.printBookList(bookList);
-                        Console.WriteLine($"\r\n        뒤로가려면 ESC를 누르세요. ");
-                        MenuControl.Get().ReadESC();
                         goto Start;
                     }
 
                 case "3":
                     {
+                        
                         break;
                     }
 
                 case "4":
                     {
+                        userList = db.userList1(userList);
                         function.userDelete(userList);
-                        Console.WriteLine($"\r\n        뒤로가려면 아무키나 누르세요. ");
-                        MenuControl.Get().ReadESC();
                         goto Start;                        
                     }
 
                 case "5":
                     {
-                        break;
+                        function.modifyBookInformation(bookList);
+                        goto Start;
                     }
 
                 case "6":
                     {
-                        break;
+                        function.addBook(bookList);
+                        goto Start;
                     }
 
                 case "7":
                     {
-                        break;
+                        function.bookDelete(bookList);
+                        goto Start;
                     }
 
                 case "8":
                     {
-                        break;
+                        Console.Clear();
+                        ui.Get().printScreenEtc();
+                        Console.Write("검색하실 책의 이름을 입력해주세요. : ");
+                        string bookName = Console.ReadLine();
+                        Console.Write("나타나실 책의 갯수를 입력해주세요. : ");
+                        string num = Console.ReadLine();
+                        api.searchBook(bookName, num);
+                        goto Start;
                     }
 
                 case "9":
+                    {
+                        break;
+                    }
+
+                case "10":
                     {
                         check = false;
                         break;
@@ -498,7 +513,7 @@ public class ui
                 default:
                     {
                         Console.WriteLine("\r\n");
-                        Console.Write("                  1~9번의 숫자를 입력해주세요.");
+                        Console.Write("                  1~10번의 숫자를 입력해주세요.");
                         break;
                     }
             }

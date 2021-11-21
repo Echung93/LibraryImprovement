@@ -31,6 +31,18 @@ public class BookVO
         this.bookDescription = bookDescription;
     }
 
+    public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity,
+        string bookDescription)
+    {
+        this.bookIDNumber = bookIDNumber;
+        this.bookName = bookName;
+        this.bookPublisher = bookPublisher;
+        this.bookAuthor = bookAuthor;
+        this.bookPrice = bookPrice;
+        this.bookQuantity = bookQuantity;
+        this.bookDescription = bookDescription;
+    }
+
     public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, /*int bookQuantity,*/
         string bookPublicationDate, string bookISBN, string bookDescription)
     {

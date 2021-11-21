@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 class initialStart
 {
-    List<UserVO> loginUser;
     public initialStart()
     {
         bool check = true;
@@ -17,26 +16,19 @@ class initialStart
             ui.Get().mainMenu();
             List<UserVO> userList = new List<UserVO>();
             Function function = new Function();
-            loginUser = new List<UserVO>();
             string input = MenuControl.Get().ReadNumber();
             switch (input)
             {
                 case "1":
                     {
-                        //function.loginUser(userList);
-                        loginUser = function.loginUser(userList);
-                        if (loginUser.Count == 0)
-                        {
-                            goto Start;
-                        }
-                        ui.Get().printScreen1();                        
-                        break;
+                        ui.Get().printScreen1();
+                        goto Start;
                     }
 
                 case "2":                   
                     {                        
                         function.register(userList);
-                        break;
+                        goto Start;
                     }
 
                 case "3":

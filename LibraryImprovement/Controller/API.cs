@@ -13,6 +13,10 @@ class API
     const string NAVER_SECRET = "bDuwCmqIPr";
     public const string NAVER_URL = "https://openapi.naver.com/v1/search/book_adv.xml?d_titl=";
 
+    public API()
+    {
+
+    }
     public void searchBook(string input, string s)
     {
         string a = "1";
@@ -97,7 +101,30 @@ class API
             ConsoleKeyInfo key;
             key = Console.ReadKey(true);
 
-            if (key.Key == ConsoleKey.RightArrow) //우측키 입력
+            if (key.Key == ConsoleKey.D1)
+            {
+                bool check1 = true;
+                Console.Write(" 등록하고자하는 책의 ISBN번호 앞10자리를 입력해주세요 ");
+                string isbn = MenuControl.Get().ReadNumber();
+                
+                while (check1)
+                {    
+                    if (isbn.Length != 10)
+                {
+                    Console.Write("\r\n 등록하고자하는 책의 ISBN번호 앞10자리를 제대로 입력해주세요 ");
+                    isbn = MenuControl.Get().ReadNumber();
+                }
+
+                else
+                {
+                    Console.Write("\r\n 등록하고자하는 책의 수량을 입력해주세요 :  ");
+                    string quantity = MenuControl.Get().ReadNumber();
+                    check1 = false;
+                }
+                }
+            }
+
+            else if (key.Key == ConsoleKey.RightArrow) //우측키 입력
             {
                 if (list.Count < int.Parse(s))
                 {

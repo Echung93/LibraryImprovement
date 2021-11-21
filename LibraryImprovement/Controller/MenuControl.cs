@@ -86,7 +86,7 @@ public class MenuControl
         }
     }
 
-    public string ReadKorea()    //숫자만 입력하는 메소드
+    public string ReadKorea()    //한글만 입력하는 메소드
     {
         string Korea = "";
         ConsoleKeyInfo key;
@@ -116,6 +116,47 @@ public class MenuControl
                 if (Korea == "")
                     continue;
                 return Korea;
+            }
+        }
+    }
+
+    public string ReadLanguage()    //한글영어만 입력하는 메소드
+    {
+        string Language = "";
+        ConsoleKeyInfo key;
+        while (true)
+        {
+            key = Console.ReadKey(true);
+
+            if (key.Key != ConsoleKey.Enter && key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Escape
+                && IsLanguageString(key))
+            {
+                Language += key.KeyChar;
+                Console.Write(key.KeyChar);
+            }
+            else if (key.Key == ConsoleKey.Backspace && Language.Length > 0)
+            {
+                int lastIndex = Language.Length - 1;
+                if (Language[lastIndex] >= '가' && Language[lastIndex] <= '힣')       //한글일경우
+                {
+                    Language = Language.Substring(0, (Language.Length - 1));
+                    Console.Write("\b\b  \b\b");
+                }
+                else
+                {
+                    Language = Language.Substring(0, (Language.Length - 1));  //한글 이외의 문자.
+                    Console.Write("\b \b");
+                }
+            }
+            else if (key.Key == ConsoleKey.Escape)      //esc 누를 경우 null 반환
+            {
+                return "\0";
+            }
+            else if (key.Key == ConsoleKey.Enter)       //엔터를 누를경우 저장된 스트링 반환
+            {
+                if (Language == "")
+                    continue;
+                return Language;
             }
         }
     }
@@ -194,6 +235,16 @@ public class MenuControl
             return true;
         return false;
     }
+
+    public bool IsLanguageString(ConsoleKeyInfo key)      //영어한글만을 입력받기 위해인지 테스트
+    {
+        char trying = key.KeyChar;
+        if (key == null) return false;
+        if ((key.KeyChar >= 'a' && key.KeyChar <= 'z') || (key.KeyChar >= 'A' && key.KeyChar <= 'Z') || (key.KeyChar >= '가' && key.KeyChar <= '힣') || key.KeyChar == ' ')
+            return true;
+        return false;
+    }
+
     public bool IsKoreaString(ConsoleKeyInfo key)      //한글만을 입력받기 위해인지 테스트
     {
         char trying = key.KeyChar;
