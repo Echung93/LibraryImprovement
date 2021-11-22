@@ -231,7 +231,7 @@ class DB
     {
         MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
         connection.Open();
-        string bookInformationString = $"VALUES('{bookIDnumber.Replace(" ", "")}', '{bookName.Substring(0, 60)}', '{bookAuthor}', '{bookPublisher}','{bookPrice}' ,'{bookQuantity}','{bookPublicationDate}', '{bookISBN}','{bookDescription.Substring(0, 40)}','{bookQuantity}')";
+        string bookInformationString = $"VALUES('{bookIDnumber.Replace(" ", "")}', '{bookName}', '{bookAuthor}', '{bookPublisher}','{bookPrice}' ,'{bookQuantity}','{bookPublicationDate}', '{bookISBN}','{bookDescription}','{bookQuantity}')";
         MySqlCommand command = new MySqlCommand("INSERT INTO library.bookinformation (bookIDnumber,bookName,bookAuthor," +
             "bookPublisher,bookPrice,bookQuantity,bookPublicationDate,bookISBN,bookDescription,bookTotalQuantity)"
             + bookInformationString, connection);

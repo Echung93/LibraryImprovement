@@ -18,33 +18,33 @@ public class BookVO
 
     }
 
-    public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity,
-        string bookPublicationDate, string bookISBN, string bookDescription, string bookTotalQuantity)
-    {
-        this.bookIDNumber = bookIDNumber;
-        this.bookName = bookName;
-        this.bookPublisher = bookPublisher;
-        this.bookAuthor = bookAuthor;
-        this.bookPrice = bookPrice;
-        this.bookQuantity = bookQuantity;
-        this.bookTotalQuantity = bookTotalQuantity;
-        this.bookPublicationDate = bookPublicationDate;
-        this.bookISBN = bookISBN;
-        this.bookDescription = bookDescription;
-    }
+    //public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity,
+    //    string bookPublicationDate, string bookISBN, string bookDescription, string bookTotalQuantity)
+    //{
+    //    this.bookIDNumber = bookIDNumber;
+    //    this.bookName = bookName;
+    //    this.bookPublisher = bookPublisher;
+    //    this.bookAuthor = bookAuthor;
+    //    this.bookPrice = bookPrice;
+    //    this.bookQuantity = bookQuantity;
+    //    this.bookTotalQuantity = bookTotalQuantity;
+    //    this.bookPublicationDate = bookPublicationDate;
+    //    this.bookISBN = bookISBN;
+    //    this.bookDescription = bookDescription;
+    //}
 
-    public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity,
-        string bookDescription)
-    {
-        this.bookIDNumber = bookIDNumber;
-        this.bookName = bookName;
-        this.bookPublisher = bookPublisher;
-        this.bookAuthor = bookAuthor;
-        this.bookPrice = bookPrice;
-        this.bookQuantity = bookQuantity;
-        this.bookDescription = bookDescription;
+    //public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity,
+    //    string bookDescription)
+    //{
+    //    this.bookIDNumber = bookIDNumber;
+    //    this.bookName = bookName;
+    //    this.bookPublisher = bookPublisher;
+    //    this.bookAuthor = bookAuthor;
+    //    this.bookPrice = bookPrice;
+    //    this.bookQuantity = bookQuantity;
+    //    this.bookDescription = bookDescription;
 
-    }
+    //}
 
     public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice,
         string bookPublicationDate, string bookISBN, string bookDescription)

@@ -814,6 +814,15 @@ class Function
                             Console.Write("\r\n 등록하고자하는 책 수량을 다시 입력해주세요.(1 ~ 100) : ");
                             goto Check2;
                         }
+                        if (bv.BookDescription.Length > 45)
+                        {
+                            bv.BookDescription = bv.BookDescription.Substring(0, 43);
+                        }
+
+                        if (bv.BookName.Length > 60)
+                        {
+                            bv.BookName = bv.BookName.Substring(0, 58);
+                        }
 
                         db.bookSave(IDnumber, bv.BookName, bv.BookAuthor, bv.BookPublisher, bv.BookPrice, quantity, bv.BookPublicationDate, bv.BookISBN, bv.BookDescription);
                         Console.Write($"\r\n 책 이름 : {bv.BookName}을 등록하였습니다. ");
