@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class BookHistoryVO
+public class LogHistoryVO
 {
     private string userName;
     private string bookName;
-    private string borrowTime;
-    private string returnTime;
+    private string time;
+    private string action;
 
-    public BookHistoryVO()
+    public LogHistoryVO()
     {
     }
 
-    public BookHistoryVO(string userName, string bookName)
+    public LogHistoryVO(string userName, string bookName)
     {
         this.userName = userName;
         this.bookName = bookName;
@@ -30,17 +30,17 @@ public class BookHistoryVO
     {
         get { return bookName; }
         set { bookName = value; }
+    }
 
-    }
-    public string BorrowTime
+    public string Time
     {
-        get { return borrowTime; }
-        set { borrowTime = value; }
+        get { return time; }
+        set { time = value; }           
+    }
+    public string Action
+    {
+        get { return action; }
+        set { action = value; }
+    }
 
-    }
-    public string ReturnTime
-    {
-        get { return returnTime; }
-        set { returnTime = value; }
-    }
 }

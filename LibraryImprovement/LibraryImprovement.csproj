@@ -40,7 +40,7 @@
     <Compile Include="Controller\API.cs" />
     <Compile Include="Controller\Function.cs" />
     <Compile Include="Controller\initialStart.cs" />
-    <Compile Include="Model\BookHistoryVO.cs" />
+    <Compile Include="Model\LogHistoryVO.cs" />
     <Compile Include="Model\BookVO.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Controller\DB.cs" />

@@ -8,6 +8,7 @@ public class BookVO
     private string bookPublisher;
     private string bookPublicationDate;
     private string bookQuantity;
+    private string bookTotalQuantity;
     private string bookISBN;
     private string bookDescription;
 
@@ -18,7 +19,7 @@ public class BookVO
     }
 
     public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, string bookQuantity,
-        string bookPublicationDate, string bookISBN, string bookDescription)
+        string bookPublicationDate, string bookISBN, string bookDescription, string bookTotalQuantity)
     {
         this.bookIDNumber = bookIDNumber;
         this.bookName = bookName;
@@ -26,6 +27,7 @@ public class BookVO
         this.bookAuthor = bookAuthor;
         this.bookPrice = bookPrice;
         this.bookQuantity = bookQuantity;
+        this.bookTotalQuantity = bookTotalQuantity;
         this.bookPublicationDate = bookPublicationDate;
         this.bookISBN = bookISBN;
         this.bookDescription = bookDescription;
@@ -41,9 +43,10 @@ public class BookVO
         this.bookPrice = bookPrice;
         this.bookQuantity = bookQuantity;
         this.bookDescription = bookDescription;
+
     }
 
-    public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice, /*int bookQuantity,*/
+    public BookVO(string bookIDNumber, string bookName, string bookPublisher, string bookAuthor, string bookPrice,
         string bookPublicationDate, string bookISBN, string bookDescription)
     {
         this.bookIDNumber = bookIDNumber;
@@ -51,12 +54,12 @@ public class BookVO
         this.bookPublisher = bookPublisher;
         this.bookAuthor = bookAuthor;
         this.bookPrice = bookPrice;
-        //this.bookQuantity = bookQuantity;
         this.bookPublicationDate = bookPublicationDate;
         this.bookISBN = bookISBN;
         this.bookDescription = bookDescription;
-
     }
+
+
 
     public string BookIDNumber
     {
@@ -92,6 +95,12 @@ public class BookVO
     {
         get { return bookQuantity; }
         set { bookQuantity = value; }
+    }
+
+    public string BookTotalQuantity
+    {
+        get { return bookTotalQuantity; }
+        set { bookTotalQuantity = value; }
     }
 
     public string BookPublicationDate
