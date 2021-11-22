@@ -12,7 +12,7 @@ class API
     const string NAVER_ID = "4djOgPTvaUjxuEqSudHM";
     const string NAVER_SECRET = "bDuwCmqIPr";
     public const string NAVER_URL = "https://openapi.naver.com/v1/search/book_adv.xml?d_titl=";
-
+    Function function = new Function();
     public API()
     {
 
@@ -72,7 +72,7 @@ class API
                 Console.WriteLine($"책 작가 : {bv.BookAuthor}");
                 Console.WriteLine($"책 가격 : {bv.BookPrice}");
                 Console.WriteLine($"책 출판사 : {bv.BookPublisher}");
-                Console.WriteLine($"책 출간일 : {bv.BookPublicationDate}");              
+                Console.WriteLine($"책 출간일 : {bv.BookPublicationDate}");
                 Console.WriteLine($"책 ISBN : {bv.BookISBN}");
                 Console.WriteLine($"책 설명 : {bv.BookDescription}");
                 Console.WriteLine("\r\n");
@@ -91,7 +91,7 @@ class API
             {
                 Console.WriteLine("\r\n마지막 페이지 입니다.");
                 check = 0;
-            } 
+            }
 
             else
             {
@@ -103,25 +103,8 @@ class API
 
             if (key.Key == ConsoleKey.D1)
             {
-                bool check1 = true;
-                Console.Write(" 등록하고자하는 책의 ISBN번호 앞10자리를 입력해주세요 ");
-                string isbn = MenuControl.Get().ReadNumber();
-                
-                while (check1)
-                {    
-                    if (isbn.Length != 10)
-                {
-                    Console.Write("\r\n 등록하고자하는 책의 ISBN번호 앞10자리를 제대로 입력해주세요 ");
-                    isbn = MenuControl.Get().ReadNumber();
-                }
-
-                else
-                {
-                    Console.Write("\r\n 등록하고자하는 책의 수량을 입력해주세요 :  ");
-                    string quantity = MenuControl.Get().ReadNumber();
-                    check1 = false;
-                }
-                }
+                function.addBookWithApi(list);
+                break;
             }
 
             else if (key.Key == ConsoleKey.RightArrow) //우측키 입력
@@ -147,14 +130,21 @@ class API
                     check = 1;
                 }
 
-                else 
-                { 
-                count--;
-                a = "1";
-                int b = int.Parse(a) + int.Parse(s) * (count);
-                a = b.ToString();
+                else
+                {
+                    count--;
+                    a = "1";
+                    int b = int.Parse(a) + int.Parse(s) * (count);
+                    a = b.ToString();
                 }
             }
+            
+            else if (key.Key == ConsoleKey.Escape)
+            {
+                goto Exit;
+            }
         }
+    Exit:
+        ;
     }
 }

@@ -68,51 +68,36 @@ class DB
         command = new MySqlCommand("INSERT INTO bookinformation (bookIDNumber,bookName,bookAuthor," +
             "bookPublisher,bookPrice,bookQuantity,bookISBN,bookPublicationDate,bookDescription)"
             + bookInformationString, connection);
-        //MySqlCommand command = new MySqlCommand("INSERT INTO userinformation (userId,userPassword,userName," +
-        //    "userAge,userPhoneNumber,userAddress,borrowedBookList,borrowedBookCount)"
-        //    + userInformationString, connection);
-        //MySqlCommand command = new MySqlCommand("SELECT *FROM bookinformation", connection);
-        //MySqlCommand command = new MySqlCommand("DELETE FROM bookinformation WHERE bookIDNumber = " + Convert.ToInt32(wantedDeleteBookID), connection);
-        //MySqlCommand command = new MySqlCommand("UPDATE bookinformation SET bookPrice = '" + modifitedPrice + "'" + " WHERE bookIDNumber = " + Convert.ToInt32(wantedModiftiedBookID), connection);
-
         command.ExecuteNonQuery();
         connection.Close();
 
     }
 
-    public List<string> userList(List<UserVO> list)
-    {
+    //public List<string> userList(List<UserVO> list)
+    //{
 
-        MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
-        connection.Open();
-        MySqlCommand command = new MySqlCommand("SELECT *FROM userinformation ", connection);
-        MySqlDataReader rdr = command.ExecuteReader();
-        List<string> userList = new List<string>();
-        List<string> userPasswordList = new List<string>();
-        List<UserVO> list1 = new List<UserVO>();
-        UserVO userVO = new UserVO();
-        while (rdr.Read())
-        {
+    //    MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
+    //    connection.Open();
+    //    MySqlCommand command = new MySqlCommand("SELECT *FROM userinformation ", connection);
+    //    MySqlDataReader rdr = command.ExecuteReader();
+    //    List<string> userList = new List<string>();
+    //    List<string> userPasswordList = new List<string>();
+    //    List<UserVO> list1 = new List<UserVO>();
+    //    UserVO userVO = new UserVO();
+    //    while (rdr.Read())
+    //    {
 
-            userVO.UserId = rdr["userId"].ToString();
-            userVO.UserId = rdr["userPassword"].ToString();
-            //Console.WriteLine($"{rdr["userId"]} {rdr["userPassword"]} {rdr["userName"]} {rdr["userPhoneNumber"]} " +
-            //    $"{rdr["userAddress"]} {rdr["borrowedBookList"]} {rdr["borrowedBookCount"]}");          
-            userList.Add(rdr["userId"].ToString());
-            userPasswordList.Add(rdr["userPassword"].ToString());
-        }
+    //        userVO.UserId = rdr["userId"].ToString();
+    //        userVO.UserId = rdr["userPassword"].ToString();
+    //        userList.Add(rdr["userId"].ToString());
+    //        userPasswordList.Add(rdr["userPassword"].ToString());
+    //    }
+    //    rdr.Close();
+    //    connection.Close();
+    //    return userList;
+    //}
 
-
-        //foreach (var i in userList)
-        //{
-        //    Console.WriteLine(i);
-        //}
-        rdr.Close();
-        connection.Close();
-        return userList;
-    }
-
-    public List<UserVO> userList1(List<UserVO> list)
+    public List<UserVO> userList(List<UserVO> list)
     {
         List<UserVO> userList = new List<UserVO>();
         MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
@@ -132,16 +117,9 @@ class DB
             userVO.UserAddress = rdr["userAddress"].ToString();
             userVO.BorrowedBookList = rdr["borrowedBookList"].ToString();
             userVO.BorrowedBookCount = rdr["borrowedBookCount"].ToString();
-            //Console.WriteLine($"{rdr["userId"]} {rdr["userPassword"]} {rdr["userName"]} {rdr["userPhoneNumber"]} " +
-            //    $"{rdr["userAddress"]} {rdr["borrowedBookList"]} {rdr["borrowedBookCount"]}");          
             userList.Add(userVO);
         }
 
-
-        //foreach (var i in userList)
-        //{
-        //    Console.WriteLine(i);
-        //}
         rdr.Close();
         connection.Close();
         return userList;
@@ -165,17 +143,10 @@ class DB
             userVO.UserPhoneNumber = rdr["userPhoneNumber"].ToString();
             userVO.UserAddress = rdr["userAddress"].ToString();
             userVO.BorrowedBookList = rdr["borrowedBookList"].ToString();
-            userVO.BorrowedBookCount = rdr["borrowedBookCount"].ToString();
-            //Console.WriteLine($"{rdr["userId"]} {rdr["userPassword"]} {rdr["userName"]} {rdr["userPhoneNumber"]} " +
-            //    $"{rdr["userAddress"]} {rdr["borrowedBookList"]} {rdr["borrowedBookCount"]}");          
+            userVO.BorrowedBookCount = rdr["borrowedBookCount"].ToString();    
             currentUser.Add(userVO);
         }
 
-
-        //foreach (var i in userList)
-        //{
-        //    Console.WriteLine(i);
-        //}
         rdr.Close();
         connection.Close();
         return currentUser;
@@ -201,26 +172,43 @@ class DB
             bookVO.BookPublicationDate = rdr["bookPublicationDate"].ToString();
             bookVO.BookISBN = rdr["bookISBN"].ToString();
             bookVO.BookDescription = rdr["bookDescription"].ToString();
-            //Console.WriteLine($"{rdr["userId"]} {rdr["userPassword"]} {rdr["userName"]} {rdr["userPhoneNumber"]} " +
-            //    $"{rdr["userAddress"]} {rdr["borrowedBookList"]} {rdr["borrowedBookCount"]}");          
+            bookVO.BookTotalQuantity = rdr["bookTotalQuantity"].ToString();
             bookList.Add(bookVO);
         }
 
-
-        //foreach (var i in userList)
-        //{
-        //    Console.WriteLine(i);
-        //}
         rdr.Close();
         connection.Close();
         return bookList;
+    }
+
+    public List<LogHistoryVO> logList(List<LogHistoryVO> list)
+    {
+        List<LogHistoryVO> logList = new List<LogHistoryVO>();
+        MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
+        connection.Open();
+        MySqlCommand command = new MySqlCommand("SELECT *FROM loginformation ", connection);
+        MySqlDataReader rdr = command.ExecuteReader();
+
+        while (rdr.Read())
+        {
+            LogHistoryVO logHistoryVO = new LogHistoryVO();
+            logHistoryVO.UserName = rdr["userName"].ToString();
+            logHistoryVO.BookName = rdr["bookName"].ToString();
+            logHistoryVO.Time = rdr["time"].ToString();
+            logHistoryVO.Action = rdr["action"].ToString();            
+            logList.Add(logHistoryVO);
+        }
+
+        rdr.Close();
+        connection.Close();
+        return logList;
     }
     public void userSave(string userID, string userPassword, string userName, string userAge, string userPhoneNumber, string userAddress)
     {
 
         MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
         connection.Open();
-        string userInformationString = $"VALUES('{userID.Replace(" ", "")}', '{userPassword.Replace(" ", "")}', '{userName.Replace(" ", "")}', '{userAge.Replace(" ", "")}','010{userPhoneNumber.Replace(" ", "")}' ,'{userAddress.Replace(" ", "")}', '','')";
+        string userInformationString = $"VALUES('{userID.Replace(" ", "")}', '{userPassword.Replace(" ", "")}', '{userName.Replace(" ", "")}', '{userAge.Replace(" ", "")}','010{userPhoneNumber.Replace(" ", "")}' ,'{userAddress.Replace(" ", "")}', '','0')";
         //MySqlCommand command = new MySqlCommand("UPDATE userinformation, connection);
         MySqlCommand command = new MySqlCommand("INSERT INTO library.userinformation (userID,userPassword,userName," +
             "userAge,userPhoneNumber,userAddress,borrowedBookList,borrowedBookCount)"
@@ -229,19 +217,39 @@ class DB
         connection.Close();
     }
 
+    public void currentUserSave(string userID, string borrowBookList, string borrowBookQuantity)
+    {
+
+        MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
+        connection.Open();        
+        MySqlCommand command = new MySqlCommand($"UPDATE userinformation SET borrowedBookList = + '{borrowBookList}', borrowedBookCount = '{borrowBookQuantity}' WHERE userId = '{userID}'", connection);
+        command.ExecuteNonQuery();
+        connection.Close();
+    }
 
     public void bookSave(string bookIDnumber, string bookName, string bookAuthor, string bookPublisher, string bookPrice, string bookQuantity, string bookPublicationDate, string bookISBN, string bookDescription)
     {
         MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
         connection.Open();
-        string bookInformationString = $"VALUES('{bookIDnumber.Replace(" ", "")}', '{bookName}', '{bookAuthor}', '{bookPublisher}','{bookPrice}' ,'{bookQuantity}','{bookPublicationDate}', '{bookISBN}','{bookDescription}')";
-        //MySqlCommand command = new MySqlCommand("UPDATE userinformation, connection);
+        string bookInformationString = $"VALUES('{bookIDnumber.Replace(" ", "")}', '{bookName.Substring(0, 60)}', '{bookAuthor}', '{bookPublisher}','{bookPrice}' ,'{bookQuantity}','{bookPublicationDate}', '{bookISBN}','{bookDescription.Substring(0, 40)}','{bookQuantity}')";
         MySqlCommand command = new MySqlCommand("INSERT INTO library.bookinformation (bookIDnumber,bookName,bookAuthor," +
-            "bookPublisher,bookPrice,bookQuantity,bookPublicationDate,bookISBN,bookDescription)"
+            "bookPublisher,bookPrice,bookQuantity,bookPublicationDate,bookISBN,bookDescription,bookTotalQuantity)"
             + bookInformationString, connection);
         command.ExecuteNonQuery();
         connection.Close();
     }
+
+    public void logSave(string userName, string bookName, string time, string action)
+    {
+        MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
+        connection.Open();
+        string logInformationString = $"VALUES('{userName}','{bookName}', '{time}','{action}')";
+        MySqlCommand command = new MySqlCommand("INSERT INTO library.loginformation (userName,bookName,time,action)"
+            + logInformationString, connection);
+        command.ExecuteNonQuery();
+        connection.Close();
+    }
+
     public void userUpdate(string userID, string userPhoneNumber, string userAddress)
     {
 
@@ -254,7 +262,7 @@ class DB
         }
         else
         {
-            command = new MySqlCommand($"UPDATE userinformation SET userPhoneNumber = '{userPhoneNumber}' WHERE userId = '{userID}'", connection);
+            command = new MySqlCommand($"UPDATE userinformation SET userPhoneNumber = '{"010"+userPhoneNumber}' WHERE userId = '{userID}'", connection);
         }
 
         command.ExecuteNonQuery();
@@ -262,6 +270,16 @@ class DB
     }
 
     public void bookUpdate(string bookIDNumber, string bookQuantity)
+    {
+
+        MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
+        connection.Open();
+        MySqlCommand command = new MySqlCommand($"UPDATE bookinformation SET bookQuantity = '{bookQuantity}',bookTotalQuantity = '{bookQuantity}' WHERE bookIDNumber = '{bookIDNumber}'", connection);
+        command.ExecuteNonQuery();
+        connection.Close();
+    }
+
+    public void borrowedBook(string bookIDNumber, string bookQuantity)
     {
 
         MySqlConnection connection = new MySqlConnection("Server=localhost;Database=Library;Uid=root;Pwd=0000;");
